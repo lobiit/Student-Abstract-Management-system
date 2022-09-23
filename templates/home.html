@@ -1,13 +1,13 @@
 {% extends 'main.html' %}
 {% block content %}
-<h1>
+<h1 xmlns="http://www.w3.org/1999/html">
     Home template
 </h1>
     <div>
         <div>
             {% for room in rooms %}
                 <div>
-                    <h5>{{ room.id }} -- {{ room.name }}</h5>
+                    <h5>{{ room.id }} -- <a href="{% url 'home' room.id%}">{{ room.name }}</a></h5>
                 </div>
             {% endfor %}
         </div>
