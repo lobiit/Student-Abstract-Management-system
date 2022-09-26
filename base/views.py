@@ -5,6 +5,7 @@ from .models import Room, Topic
 from .forms import RoomForm
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 """
 rooms = [
@@ -35,6 +36,11 @@ def login_page(request):
     return render(request, "login_register.html", context)
 
 
+def logout_user(request):
+    logout(request)
+    return redirect("home")
+
+
 # Create your views here.
 def home(request):
     q = request.GET.get("q") if request.GET.get("q") is not None else ""
@@ -55,6 +61,7 @@ def room(request, pk):
     return render(request, "room.html", context)
 
 
+@login_required()
 def create_room(request):
     form = RoomForm()
     if request.method == "POST":
