@@ -160,3 +160,8 @@ def delete_message(request, pk):
         message.delete()
         return redirect("home")
     return render(request, "delete.html", {'obj': message})
+
+
+@login_required(login_url='login')
+def update_user(request):
+    return render(request, 'update-user.html')
