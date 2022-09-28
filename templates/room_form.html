@@ -41,12 +41,7 @@
 
             <div class="form__group">
               <label for="room_description">Description</label>
-            {{ form.name}}
-            </div>
-
-            <div class="form__group">
-              <label for="room_about">Body</label>
-              <textarea name="room_about" id="room_about" placeholder="Write about your project..."></textarea>
+            {{ form.description}}
             </div>
             <div class="form__action">
               <a class="btn btn--dark" href="{% url 'home' %}">Cancel</a>

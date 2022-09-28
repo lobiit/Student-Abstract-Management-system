@@ -76,7 +76,7 @@
               <div class="room__details">
                {{ room.description }}
               </div>
-              <span class="room__topics">{{ room.topic }}</span>
+              <span class="room__topics">Topic:{{ room.topic }}</span>
             </div>
             <div class="room__conversation">
               <div class="threads scroll">
@@ -106,7 +106,7 @@
                           {% endif %}
                   </div>
                   <div class="thread__details">
-                    {{ message.body }}
+                    <p>{{ message.body }}</p>
                   </div>
                 </div>
                     {% endfor %}
@@ -114,7 +114,9 @@
             </div>
           </div>
           <div class="room__message">
-            <form action="#"><input name="" placeholder="Write your message here..." /></form>
+            <form action="" method="post">
+                {% csrf_token %}
+                <input name="body" placeholder="Write your contribution  here..." /></form>
           </div>
         </div>
         <!-- Room End -->
