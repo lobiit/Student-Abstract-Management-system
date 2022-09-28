@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.db.models import Q
 from .models import Room, Topic, Message
-from .forms import RoomForm
+from .forms import RoomForm, UserForm
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -164,4 +164,6 @@ def delete_message(request, pk):
 
 @login_required(login_url='login')
 def update_user(request):
-    return render(request, 'update-user.html')
+    user = request.user
+    form = UserForm(instance=user)
+    return render(request, 'update-user.html', {'form':form})
