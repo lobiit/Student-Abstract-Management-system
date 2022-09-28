@@ -172,3 +172,9 @@ def update_user(request):
             form.save()
             return redirect('user-profile', pk=user.id)
     return render(request, 'update-user.html', {'form': form})
+
+
+def topics_page(request):
+    q = request.GET.get("q") if request.GET.get("q") is not None else ""
+    topics = Topic.objects.filter(name__icontains=q)
+    return render(request, 'topics.html', {'topics':topics})
