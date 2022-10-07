@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.db.models import Q
-from .models import Room, Topic, Message, User
+from .models import Abstract, Topic, Message, User
 from .forms import RoomForm, UserForm, MyUserCreateForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -51,7 +51,7 @@ def register_user(request):
         form = MyUserCreateForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.username = user.username.lower()
+            user.username = user.email.lower()
             user.save()
             login(request, user)
             return redirect('home')
@@ -63,7 +63,7 @@ def register_user(request):
 # Create your views here.
 def home(request):
     q = request.GET.get("q") if request.GET.get("q") is not None else ""
-    rooms = Room.objects.filter(
+    rooms = Abstract.objects.filter(
         Q(topic__name__icontains=q) |
         Q(name__icontains=q) |
         Q(description__icontains=q)
@@ -76,7 +76,7 @@ def home(request):
 
 
 def room(request, pk):
-    room = Room.objects.get(id=pk)
+    room = Abstract.objects.get(id=pk)
     room_messages = room.message_set.all()
     participants = room.participants.all()
     if request.method == 'POST':
@@ -108,7 +108,7 @@ def create_room(request):
         topic_name = request.POST.get('topic')
         topic, created = Topic.objects.get_or_create(name=topic_name)
 
-        Room.objects.create(
+        Abstract.objects.create(
             host=request.user,
             topic=topic,
             name=request.POST.get('name'),
@@ -121,7 +121,7 @@ def create_room(request):
 
 @login_required(login_url='login')
 def update_room(request, pk):
-    room = Room.objects.get(id=pk)
+    room = Abstract.objects.get(id=pk)
     form = RoomForm(instance=room)
     topics = Topic.objects.all()
     if request.user != room.host:
@@ -140,7 +140,7 @@ def update_room(request, pk):
 
 @login_required(login_url='login')
 def delete_room(request, pk):
-    room = Room.objects.get(id=pk)
+    room = Abstract.objects.get(id=pk)
     if request.user != room.host:
         return HttpResponse("You are not allowed here!!")
     if request.method == "POST":

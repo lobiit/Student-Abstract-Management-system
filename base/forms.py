@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Room, User
+from .models import Abstract, User
 from django.contrib.auth.forms import UserCreationForm
 
 
@@ -11,7 +11,7 @@ class MyUserCreateForm(UserCreationForm):
 
 class RoomForm(ModelForm):
     class Meta:
-        model = Room
+        model = Abstract
         fields = '__all__'
         exclude = ['host', 'participants']
 

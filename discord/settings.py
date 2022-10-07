@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-)97p#q%a%pjg0jo7$d7*)y+bd+k(%+y9ixbkg%0lc$+dntnvqv
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -75,8 +75,12 @@ WSGI_APPLICATION = 'discord.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'abstract management',
+        'USER': 'postgres',
+        'PASSWORD': '1000',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
