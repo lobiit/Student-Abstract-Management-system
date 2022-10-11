@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from base.models import Abstract
 from .serializers import RoomSerializer
 
+
 @api_view(['GET'])
 def get_routes(request):
     routes = [

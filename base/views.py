@@ -181,3 +181,9 @@ def topics_page(request):
 def activity_page(request):
     room_messages = Message.objects.all()
     return render(request, 'activity.html', {'room_messages': room_messages})
+
+
+from rest_framework import generics, mixins, permissions, authentication
+from .serializers import  AbstractSerializer, MessageSerializer, UserSerializer, TopicSerializer
+
+
