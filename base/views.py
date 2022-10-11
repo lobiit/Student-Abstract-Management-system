@@ -184,6 +184,194 @@ def activity_page(request):
 
 
 from rest_framework import generics, mixins, permissions, authentication
-from .serializers import  AbstractSerializer, MessageSerializer, UserSerializer, TopicSerializer
+from .serializers import AbstractSerializer, MessageSerializer, UserSerializer, TopicSerializer
 
 
+class AbstractListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Abstract.objects.all()
+    serializer_class = AbstractSerializer
+    authentication_classes = [authentication.SessionAuthentication]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+        # print(serializer.validated_data)
+
+
+abstract_list_create_view = AbstractListCreateAPIView.as_view()
+
+
+class AbstractDetailView(generics.RetrieveAPIView):
+    queryset = Abstract.objects.all()
+    serializer_class = AbstractSerializer
+    # lookup_field = pk
+
+
+abstract_detail_view = AbstractDetailView.as_view()
+
+
+class AbstractUpdateAPIView(generics.UpdateAPIView):
+    queryset = Abstract.objects.all()
+    serializer_class = AbstractSerializer
+    authentication_classes = [authentication.SessionAuthentication]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    lookup_field = 'pk'
+
+    def perform_update(self, serializer):
+        instance = serializer.save()
+
+
+abstract_update_view = AbstractUpdateAPIView.as_view()
+
+
+class AbstractDeleteAPIView(generics.DestroyAPIView):
+    queryset = Abstract.objects.all()
+    serializer_class = AbstractSerializer
+    authentication_classes = [authentication.SessionAuthentication]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    lookup_field = 'pk'
+
+    def perform_destroy(self, instance):
+        super().perform_destroy(instance)
+
+
+abstract_delete_view = AbstractDeleteAPIView.as_view()
+
+
+# TOPICS API VIEW
+class TopicListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Topic.objects.all()
+    serializer_class = TopicSerializer
+    authentication_classes = [authentication.SessionAuthentication]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+
+topic_list_create_view = TopicListCreateAPIView.as_view()
+
+
+class TopicDetailView(generics.RetrieveAPIView):
+    queryset = Topic.objects.all()
+    serializer_class = TopicSerializer
+    # lookup_field = pk
+
+
+topic_detail_view = TopicDetailView.as_view()
+
+
+class TopicUpdateAPIView(generics.UpdateAPIView):
+    queryset = Topic.objects.all()
+    serializer_class = TopicSerializer
+    authentication_classes = [authentication.SessionAuthentication]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    lookup_field = 'pk'
+
+    def perform_update(self, serializer):
+        instance = serializer.save()
+
+
+topic_update_view = TopicUpdateAPIView.as_view()
+
+
+class TopicDeleteAPIView(generics.DestroyAPIView):
+    queryset = Topic.objects.all()
+    serializer_class = TopicSerializer
+    authentication_classes = [authentication.SessionAuthentication]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    lookup_field = 'pk'
+
+    def perform_destroy(self, instance):
+        super().perform_destroy(instance)
+
+
+topic_delete_view = TopicDeleteAPIView.as_view()
+
+
+# USERS API VIEW
+class UserListCreateAPIView(generics.ListCreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    authentication_classes = [authentication.SessionAuthentication]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+
+user_list_create_view = UserListCreateAPIView.as_view()
+
+
+class UserDetailView(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    # lookup_field = pk
+
+
+user_detail_view = UserDetailView.as_view()
+
+
+class UserUpdateAPIView(generics.UpdateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    authentication_classes = [authentication.SessionAuthentication]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    lookup_field = 'pk'
+
+    def perform_update(self, serializer):
+        instance = serializer.save()
+
+
+user_update_view = UserUpdateAPIView.as_view()
+
+
+class UserDeleteAPIView(generics.DestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    authentication_classes = [authentication.SessionAuthentication]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    lookup_field = 'pk'
+
+    def perform_destroy(self, instance):
+        super().perform_destroy(instance)
+
+
+user_delete_view = UserDeleteAPIView.as_view()
+
+
+# MESSAGE API VIEW
+class MessageListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Message.objects.all()
+    serializer_class = MessageSerializer
+    authentication_classes = [authentication.SessionAuthentication]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+
+message_list_create_view = MessageListCreateAPIView.as_view()
+
+
+class MessageDetailView(generics.RetrieveAPIView):
+    queryset = Topic.objects.all()
+    serializer_class = TopicSerializer
+    # lookup_field = pk
+
+
+message_detail_view = MessageDetailView.as_view()
+
+
+class MessageDeleteAPIView(generics.DestroyAPIView):
+    queryset = Message.objects.all()
+    serializer_class = MessageSerializer
+    authentication_classes = [authentication.SessionAuthentication]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    lookup_field = 'pk'
+
+    def perform_destroy(self, instance):
+        super().perform_destroy(instance)
+
+
+message_delete_view = MessageDeleteAPIView.as_view()
