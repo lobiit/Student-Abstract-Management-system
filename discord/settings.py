@@ -76,9 +76,9 @@ WSGI_APPLICATION = 'discord.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'abstract management',
+        'NAME': '',
         'USER': 'postgres',
-        'PASSWORD': '1000',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '5432',
     }
