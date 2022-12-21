@@ -7,14 +7,7 @@ from .forms import RoomForm, UserForm, MyUserCreateForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-"""
-rooms = [
-    {'id': 1, 'name': 'Lets learn python!'},
-    {'id': 2, 'name': 'Design with me!'},
-    {'id': 3, 'name': 'devs!'},
-    {'id': 4, 'name': 'python!'},
-]
-"""
+
 
 
 def login_page(request):
